@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using MvcMovie.Data;
 using MvcMovie.Models;
 
 namespace MvcMovie.Controllers
@@ -21,7 +22,7 @@ namespace MvcMovie.Controllers
         // GET: Movies
         public async Task<IActionResult> Index()
         {
-              return _context.Movie != null ? 
+              return _context.Movie != null ?
                           View(await _context.Movie.ToListAsync()) :
                           Problem("Entity set 'MvcMovieContext.Movie'  is null.");
         }
@@ -149,7 +150,6 @@ namespace MvcMovie.Controllers
             {
                 _context.Movie.Remove(movie);
             }
-            
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
